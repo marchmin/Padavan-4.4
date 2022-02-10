@@ -446,6 +446,9 @@
 		};
 
 	struct variable variables_PPPConnection[] = {
+			{"pppoemwan_enable", "", NULL, EVM_RESTART_WAN},
+			{"pppoesync_enable", "", NULL, EVM_RESTART_WAN},
+			{"pppoe_num", "", NULL, EVM_RESTART_WAN},
 			{"wan_pppoe_username", "", NULL, EVM_RESTART_WAN},
 			{"wan_pppoe_passwd", "", NULL, EVM_RESTART_WAN},
 			{"wan_pppoe_idletime", "", NULL, EVM_RESTART_WAN},
