@@ -456,6 +456,7 @@ void restart_aldriver(void){
 }
 #endif
 
+#if defined(APP_WIREGUARD)
 void stop_wireguard(void){
 	eval("/usr/bin/wireguard.sh","stop");
 }
@@ -470,6 +471,7 @@ void restart_wireguard(void){
 	stop_wireguard();
 	start_wireguard();
 }
+#endif
 
 #if defined(APP_ADBYBY)
 void stop_adbyby(void){
@@ -763,14 +765,17 @@ stop_services(int stopall)
 #if defined(APP_ALDRIVER)
 	stop_aldriver();
 #endif
-
+#if defined(APP_WIREGUARD)
 	stop_wireguard();
-
+#endif
 #if defined(APP_ALIDDNS)
 	stop_aliddns();
 #endif
 #if defined(APP_TTYD)
 	stop_ttyd();
+#endif
+#if defined(APP_WIREGUARD)
+	stop_wireguard();
 #endif
 	stop_networkmap();
 	stop_lltd();
