@@ -2281,6 +2281,25 @@ static int ddnsto_status_hook(int eid, webs_t wp, int argc, char **argv)
 	return 0;
 }
 #endif
+#if defined (APP_SQM)
+static int sqm_status_hook(int eid, webs_t wp, int argc, char **argv)
+{
+	int sqm_status_code = system("tc qdisc | grep -w -q `nvram get sqm_qdisc`");
+	websWrite(wp, "function sqm_status() { return %d;}\n", sqm_status_code);
+	return 0;
+}
+#endif
+
+static int update_action_hook(int eid, webs_t wp, int argc, char **argv)
+{
+	char *up_action = websGetVar(wp, "connect_action", "");
+
+	if (!strcmp(up_action, "bigtmp")) {
+		system("mount -t tmpfs -o remount,rw,size=50M tmpfs /tmp");
+	}
+	return 0;
+}
+
 static int
 ej_detect_internet_hook(int eid, webs_t wp, int argc, char **argv)
 {
@@ -2485,6 +2504,11 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 #else
 	int found_app_aldriver = 0;
 #endif
+#if defined(APP_SQM)
+	int found_app_sqm = 1;
+#else
+	int found_app_sqm = 0;
+#endif
 #if defined(APP_ADBYBY)
 	int found_app_adbyby = 1;
 #else
@@ -2666,6 +2690,7 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		"function found_app_vlmcsd() { return %d;}\n"
 		"function found_app_dnsforwarder() { return %d;}\n"
 		"function found_app_shadowsocks() { return %d;}\n"
+		"function found_app_sqm() { return %d;}\n"
 		"function found_app_wireguard() { return %d;}\n"
 		"function found_app_xupnpd() { return %d;}\n"
 		"function found_app_mentohust() { return %d;}\n"
@@ -2694,6 +2719,7 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		found_app_vlmcsd,
 		found_app_dnsforwarder,
 		found_app_shadowsocks,
+		found_app_sqm,
 		found_app_wireguard,
 		found_app_xupnpd,
 		found_app_mentohust,
@@ -4410,6 +4436,9 @@ struct ej_handler ej_handlers[] =
 	{ "rules_count", rules_count_hook},
 	{ "pdnsd_status", pdnsd_status_hook},
 #endif
+#if defined (APP_SQM)
+	{ "sqm_status", sqm_status_hook},
+#endif
 #if defined (APP_ADBYBY)
 	{ "adbyby_action", adbyby_action_hook},
 	{ "adbyby_status", adbyby_status_hook},
@@ -4417,6 +4446,7 @@ struct ej_handler ej_handlers[] =
 #if defined (APP_DNSFORWARDER)
 	{ "dnsforwarder_status", dnsforwarder_status_hook},
 #endif
+	{ "update_action", update_action_hook},
 	{ "openssl_util_hook", openssl_util_hook},
 	{ "openvpn_srv_cert_hook", openvpn_srv_cert_hook},
 	{ "openvpn_cli_cert_hook", openvpn_cli_cert_hook},
