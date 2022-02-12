@@ -2289,6 +2289,7 @@ static int sqm_status_hook(int eid, webs_t wp, int argc, char **argv)
 	return 0;
 }
 #endif
+
 #if defined (APP_SMARTDNS)
 static int smartdns_status_hook(int eid, webs_t wp, int argc, char **argv)
 {
@@ -2637,7 +2638,7 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 #if defined (USE_WID_5G) && (USE_WID_5G==7615 || USE_WID_5G==7915)
 	int has_5g_mumimo = 1;
 	int has_5g_txbf = 1;
-#if defined (BOARD_MT7615_DBDC) || (BOARD_MT7915_DBDC)
+#if defined (BOARD_MT7615_DBDC) || defined (BOARD_MT7915_DBDC)
 	int has_5g_160mhz = 0;
 #else
 	int has_5g_160mhz = 1;
@@ -2734,7 +2735,6 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		found_app_dnsforwarder,
 		found_app_shadowsocks,
 		found_app_sqm,
-		found_app_smartdns,
 		found_app_wireguard,
 		found_app_xupnpd,
 		found_app_mentohust,
@@ -2743,6 +2743,7 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		found_app_ddnsto,
 		found_app_aldriver,
 		found_app_aliddns,
+		found_app_smartdns,
 		found_app_adguardhome
 	);
 
