@@ -40,53 +40,15 @@ This project is based on original rt-n56u with latest mtk 4.4.198 kernel, which 
   - MI-R4A(from https://github.com/vipshmily/padavan-4.4, 没有机器测试，自行判断)
   - ~~MT1300(from https://github.com/wifiway520/padavan-4.4, 大佬说不稳定，配置文件不成熟，删了)~~
   
-- Compilation step
-  - Install dependencies
-    ```sh
-    # Debian/Ubuntu
-    sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
-        fakeroot kmod cpio git python3-docutils gettext automake autopoint \
-        texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
-        libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
+固件默认wifi名称 
 
-    # Archlinux/Manjaro
-    sudo pacman -Syu --needed git base-devel cmake gperf ncurses libmpc \
-            gmp python-docutils vim rpcsvc-proto fakeroot cpio help2man
+2.4G：机器名_mac地址最后四位，如K2P_9981
 
-    # Alpine
-    sudo apk add make gcc g++ cpio curl wget nano xxd kmod \
-        pkgconfig rpcgen fakeroot ncurses bash patch \
-        bsd-compat-headers python2 python3 zlib-dev \
-        automake gettext gettext-dev autoconf bison \
-        flex coreutils cmake git libtool gawk sudo
-    ```
-  - Clone source code
-    ```sh
-    git clone https://github.com/meisreallyba/padavan-4.4.git
-    ```
-  - Prepare toolchain
-    ```sh
-    cd padavan-4.4/toolchain-mipsel
+5G：机器名_5G_mac地址最后四位，如K2P_5G_9981
 
-    # (Recommend) Download prebuilt toolchain for x86_64 or aarch64 host
-    ./dl_toolchain.sh
+wifi密码
 
-    # or build toolchain with crosstool-ng
-    # ./build_toolchain
-    ```
-  - Modify template file and start compiling
-    ```sh
-    cd padavan-4.4/trunk
-
-    # (Optional) Modify template file
-    # nano configs/templates/K2P.config
-
-    # Start compiling
-    fakeroot ./build_firmware_modify K2P
-
-    # To build firmware for other devices, clean the tree after previous build
-    ./clear_tree
-    ```
+1234567890
 
 - Manuals
   - Controlling GPIO and LEDs via sysfs
