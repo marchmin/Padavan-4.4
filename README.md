@@ -50,8 +50,10 @@ wifi密码
 
 1234567890
 
-- Manuals
-  - Controlling GPIO and LEDs via sysfs
-  - How to use NAND RWFS partition
-  - How to use IPv6 NAT and fullcone NAT
-  - How to add new device support with device tree
+固件后台管理地址:
+
+192.168.2.1
+
+user: admin
+
+password: admin
